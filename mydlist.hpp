@@ -23,13 +23,13 @@ class MyDoublyLinkedList
 private:
 	MyNode<T>* head;  // sentinel
 	MyNode<T>* tail;  // sentinel
-	int isize;
+	int isize = 0;
 
 public:
 	MyDoublyLinkedList()
 	{
-		head = nullptr;
-		tail = nullptr;
+		head = new MyNode<T>();
+		tail = new MyNode<T>();
 		head->setNext(tail);
 		tail->setPrev(head);
 	}
@@ -63,32 +63,34 @@ public:
 
 	void addToHead(T* in)
 	{
-		MyNode<T> newNode = new MyNode<T>();
-		newNode.set(in);
+		MyNode<T> *newNode = new MyNode<T>();
+		newNode->set(in);
+		newNode->setNext(head->getNext());
 		head->setNext(newNode);
+		newNode->setPrev(head);
 		isize += 1;
 	}
 
 	void removeFromHead()
 	{
-		MyNode<T> temp = head->getNext()->getNext();
-		head->setNext(temp);
+		head->setNext(head->getNext()->getNext());
 		isize -= 1;
 	}
 
 
 	void addToTail(T* in)
 	{
-		MyNode<T> newNode = new MyNode<T>();
+		MyNode<T> *newNode = new MyNode<T>();
 		newNode.set(in);
+		newNode->setPrev(tail->getPrev());
 		tail->setPrev(newNode);
+		newNode->setNext(tail);
 		isize += 1;
 	}
 
 	void removeFromTail()
 	{
-		MyNode<T> temp = tail->getPrev()->getPrev();
-		tail->setPrev(temp);
+		tail->setPrev(tail->getPrev()->getPrev());
 		isize -= 1;
 	}
 };
