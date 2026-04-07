@@ -36,6 +36,7 @@ public:
 
 	bool isEmpty()
 	{
+		return true;
 	}
 
 	int getSize()
